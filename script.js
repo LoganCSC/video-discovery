@@ -13,7 +13,6 @@ var data = (function () {
 			});
 	}
 
-	// Only returns first video for now.
 	function retrieveListOfVideos( playlistId, callback ) {
 		var apiURL = 'https://www.googleapis.com/youtube/v3/playlistItems';
 		$.get(apiURL, {
@@ -21,13 +20,20 @@ var data = (function () {
 			playlistId: playlistId,
 			key: apiKey })
 			.done(function (response) {
-				callback(response.items[0].contentDetails.videoId);
+				callback(response);
 			});
+	}
+	
+	function selectRandomId( json ) {
+		var randInteger = Math.floor(Math.random() * json.items.length);
+		return json.items[randInteger].contentDetails.videoId;
 	}
 
 	my.getListOfVideos = function ( username, callback ) {
-		retrievePlaylistId(username, function ( id ) {
-			retrieveListOfVideos( id, callback );
+		retrievePlaylistId(username, function ( playlistId ) {
+			retrieveListOfVideos( playlistId, function ( videoIdList ) {
+				callback(selectRandomId( videoIdList ));
+			});
 		});
 	};
 
@@ -35,4 +41,9 @@ var data = (function () {
 
 }());
 
-(data.getListOfVideos('lilbpack1', function(id){console.log(id);}));
+function appendVideo() {
+	$('#videoPlayer').remove();
+	data.getListOfVideos($('#userInput').val(), function( videoId ){
+		$('body').append('<iframe id="videoPlayer" width="560" height="315" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
+	});
+}
