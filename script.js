@@ -30,7 +30,7 @@ var youTubeAccess = (function () {
 				
 				var firstPlayListItem = response.items[0];
 				if (!firstPlayListItem) {
-					alert("You need to specifiy a valid YouTube channel");
+					alert("You need to specifiy a valid YouTube channel (username="+username+")");
 				}
 				
 				callback(firstPlayListItem.contentDetails.relatedPlaylists.uploads);
