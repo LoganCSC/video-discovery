@@ -9,6 +9,9 @@ var data = (function () {
 			forUsername: username,
 			key: apiKey }, 'json')
 			.done(function idFromResponse(response) {
+				if (!response.items[0]) {
+					alert("You need to specifiy a valid YouTube channel");
+				}
 				callback(response.items[0].contentDetails.relatedPlaylists.uploads);
 			});
 	}
