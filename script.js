@@ -1,5 +1,5 @@
 
-/** This module allows you to get videos from a specified youtube channel */
+/** This module allows you to get videos from a specified youtube channel. */
 var youTubeAccess = (function () {
 	
 	// The my object holds public functions and properties
@@ -30,7 +30,7 @@ var youTubeAccess = (function () {
 				
 				var firstPlayListItem = response.items[0];
 				if (!firstPlayListItem) {
-					alert("You need to specifiy a valid YouTube channel (username="+username+")");
+					alert("You need to specifiy a valid YouTube channel (username=" + username + ")");
 				}
 				
 				callback(firstPlayListItem.contentDetails.relatedPlaylists.uploads);
@@ -38,7 +38,7 @@ var youTubeAccess = (function () {
 	}
 
 	/**
-	 * @param playListId id of play list to retrieve
+	 * @param playListId id of play list to retrieve.
 	 * @param callback function to call with the list of videos
 	 */
 	function retrieveListOfVideos( playlistId, callback ) {
@@ -57,15 +57,15 @@ var youTubeAccess = (function () {
 			});
 	}
 	
-	/** @return a random video id from the list of videos */
+	/** @return a random video id from the list of videos. */
 	function selectRandomId( json ) {
 		var randInteger = Math.floor(Math.random() * json.items.length);
 		return json.items[randInteger].contentDetails.videoId;
 	}
 
 	/**
-	 * @param username name of the youtube user who will provide random video
-	 * @param callback what to call when a random video has been selected
+	 * @param username name of the youtube user who will provide random video.
+	 * @param callback what to call when a random video has been selected.
 	 */
 	my.getRandomVideo = function ( username, callback ) {
 		retrievePlaylistId(username, function ( playlistId ) {
